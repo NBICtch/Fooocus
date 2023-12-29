@@ -251,16 +251,16 @@ default_image_number = get_config_item_or_set_default(
 checkpoint_downloads = get_config_item_or_set_default(
     key='checkpoint_downloads',
     default_value={
-        "OpenDalle.safetensors": "https://huggingface.co/LLVVSE/fav_models/resolve/main/OpenDalle.safetensors",
-        "RealVisXL_V3.0.safetensors": "https://huggingface.co/LLVVSE/fav_models/resolve/main/RealVisXL_V3.0.safetensors",
-        "newrealityxlAllInOne_20.safetensors": "https://huggingface.co/LLVVSE/fav_models/resolve/main/newrealityxlAllInOne_20.safetensors" 
+        "OpenDalle.safetensors": "https://fooocus-bucket.s3.amazonaws.com/fav_models/checkpoint/OpenDalle.safetensors",
+        "RealVisXL_V3.0.safetensors": "https://fooocus-bucket.s3.amazonaws.com/fav_models/checkpoint/RealVisXL_V3.0.safetensors",
+        "newrealityxlAllInOne_20.safetensors": "https://fooocus-bucket.s3.amazonaws.com/fav_models/checkpoint/newrealityxl_20.safetensors" 
     },
     validator=lambda x: isinstance(x, dict) and all(isinstance(k, str) and isinstance(v, str) for k, v in x.items())
 )
 lora_downloads = get_config_item_or_set_default(
     key='lora_downloads',
     default_value={
-        "sd_xl_offset_example-lora_1.0.safetensors": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_offset_example-lora_1.0.safetensors"
+        "sd_xl_offset_example-lora_1.0.safetensors": "https://fooocus-bucket.s3.amazonaws.com/fav_models/lora/sd_xl_offset_example-lora_1.0.safetensors"
     },
     validator=lambda x: isinstance(x, dict) and all(isinstance(k, str) and isinstance(v, str) for k, v in x.items())
 )
@@ -396,7 +396,7 @@ def downloading_inpaint_models(v):
     assert v in modules.flags.inpaint_engine_versions
 
     load_file_from_url(
-        url='https://huggingface.co/lllyasviel/fooocus_inpaint/resolve/main/fooocus_inpaint_head.pth',
+        url='https://fooocus-bucket.s3.amazonaws.com/fav_models/inpaint/fooocus_inpaint_head.pth',
         model_dir=path_inpaint,
         file_name='fooocus_inpaint_head.pth'
     )
@@ -405,7 +405,7 @@ def downloading_inpaint_models(v):
 
     if v == 'v1':
         load_file_from_url(
-            url='https://huggingface.co/lllyasviel/fooocus_inpaint/resolve/main/inpaint.fooocus.patch',
+            url='https://fooocus-bucket.s3.amazonaws.com/fav_models/inpaint/inpaint.fooocus.patch',
             model_dir=path_inpaint,
             file_name='inpaint.fooocus.patch'
         )
@@ -413,7 +413,7 @@ def downloading_inpaint_models(v):
 
     if v == 'v2.5':
         load_file_from_url(
-            url='https://huggingface.co/lllyasviel/fooocus_inpaint/resolve/main/inpaint_v25.fooocus.patch',
+            url='https://fooocus-bucket.s3.amazonaws.com/fav_models/inpaint/inpaint_v25.fooocus.patch',
             model_dir=path_inpaint,
             file_name='inpaint_v25.fooocus.patch'
         )
@@ -421,7 +421,7 @@ def downloading_inpaint_models(v):
 
     if v == 'v2.6':
         load_file_from_url(
-            url='https://huggingface.co/lllyasviel/fooocus_inpaint/resolve/main/inpaint_v26.fooocus.patch',
+            url='https://fooocus-bucket.s3.amazonaws.com/fav_models/inpaint/inpaint_v26.fooocus.patch',
             model_dir=path_inpaint,
             file_name='inpaint_v26.fooocus.patch'
         )
@@ -432,7 +432,7 @@ def downloading_inpaint_models(v):
 
 def downloading_sdxl_lcm_lora():
     load_file_from_url(
-        url='https://huggingface.co/lllyasviel/misc/resolve/main/sdxl_lcm_lora.safetensors',
+        url='https://fooocus-bucket.s3.amazonaws.com/fav_models/lora/sdxl_lcm_lora.safetensors',
         model_dir=path_loras,
         file_name='sdxl_lcm_lora.safetensors'
     )
@@ -441,7 +441,7 @@ def downloading_sdxl_lcm_lora():
 
 def downloading_controlnet_canny():
     load_file_from_url(
-        url='https://huggingface.co/lllyasviel/misc/resolve/main/control-lora-canny-rank128.safetensors',
+        url='https://fooocus-bucket.s3.amazonaws.com/fav_models/ipa/control-lora-canny-rank128.safetensors',
         model_dir=path_controlnet,
         file_name='control-lora-canny-rank128.safetensors'
     )
@@ -450,7 +450,7 @@ def downloading_controlnet_canny():
 
 def downloading_controlnet_cpds():
     load_file_from_url(
-        url='https://huggingface.co/lllyasviel/misc/resolve/main/fooocus_xl_cpds_128.safetensors',
+        url='https://fooocus-bucket.s3.amazonaws.com/fav_models/ipa/fooocus_xl_cpds_128.safetensors',
         model_dir=path_controlnet,
         file_name='fooocus_xl_cpds_128.safetensors'
     )
@@ -463,14 +463,14 @@ def downloading_ip_adapters(v):
     results = []
 
     load_file_from_url(
-        url='https://huggingface.co/lllyasviel/misc/resolve/main/clip_vision_vit_h.safetensors',
+        url='https://fooocus-bucket.s3.amazonaws.com/fav_models/ipa/clip_vision_vit_h.safetensors',
         model_dir=path_clip_vision,
         file_name='clip_vision_vit_h.safetensors'
     )
     results += [os.path.join(path_clip_vision, 'clip_vision_vit_h.safetensors')]
 
     load_file_from_url(
-        url='https://huggingface.co/lllyasviel/misc/resolve/main/fooocus_ip_negative.safetensors',
+        url='https://fooocus-bucket.s3.amazonaws.com/fav_models/ipa/fooocus_ip_negative.safetensors',
         model_dir=path_controlnet,
         file_name='fooocus_ip_negative.safetensors'
     )
@@ -478,7 +478,7 @@ def downloading_ip_adapters(v):
 
     if v == 'ip':
         load_file_from_url(
-            url='https://huggingface.co/lllyasviel/misc/resolve/main/ip-adapter-plus_sdxl_vit-h.bin',
+            url='https://fooocus-bucket.s3.amazonaws.com/fav_models/ipa/ip-adapter-plus_sdxl_vit-h.bin',
             model_dir=path_controlnet,
             file_name='ip-adapter-plus_sdxl_vit-h.bin'
         )
@@ -486,7 +486,7 @@ def downloading_ip_adapters(v):
 
     if v == 'face':
         load_file_from_url(
-            url='https://huggingface.co/lllyasviel/misc/resolve/main/ip-adapter-plus-face_sdxl_vit-h.bin',
+            url='https://fooocus-bucket.s3.amazonaws.com/fav_models/ipa/ip-adapter-plus-face_sdxl_vit-h.bin',
             model_dir=path_controlnet,
             file_name='ip-adapter-plus-face_sdxl_vit-h.bin'
         )
@@ -497,7 +497,7 @@ def downloading_ip_adapters(v):
 
 def downloading_upscale_model():
     load_file_from_url(
-        url='https://huggingface.co/lllyasviel/misc/resolve/main/fooocus_upscaler_s409985e5.bin',
+        url='https://fooocus-bucket.s3.amazonaws.com/fav_models/upscale/fooocus_upscaler_s409985e5.bin',
         model_dir=path_upscale_models,
         file_name='fooocus_upscaler_s409985e5.bin'
     )
